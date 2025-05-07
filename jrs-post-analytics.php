@@ -25,3 +25,10 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( 'You shall not pass!' );
 }
+
+/**
+ * Requires the class that contains the plugin's functionalities.
+ */
+require_once plugin_dir_path( __FILE__ ) . '/class-jrs-post-analytics.php';
+
+new Jrs_Post_Analytics();

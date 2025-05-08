@@ -122,6 +122,25 @@ class Jrs_Post_Analytics {
 				'default'           => '1',
 			)
 		);
+
+		// Adds a field to configure if character count is enabled.
+		add_settings_field(
+			'jrs-post-analytics-charactercount-enable',
+			__( 'Enable Character Count', 'jrs-post-analytics' ),
+			array( $this, 'build_charactercount_settings_html' ),
+			'post-analytics-settings-page',
+			'jrs-post-analysis-section-one'
+		);
+
+		// Registers the setting and its data.
+		register_setting(
+			'jrs-data-analytics-group',
+			'jrs-post-analytics-charactercount-enable',
+			array(
+				'sanitize_callback' => 'sanitize_text_field',
+				'default'           => '1',
+			)
+		);
 	}
 
 	/**
@@ -156,6 +175,15 @@ class Jrs_Post_Analytics {
 	public function build_wordcount_settings_html() {
 		?>
 		<input type="checkbox" name="jrs-post-analytics-wordcount-enable" value="1" <?php checked( get_option( 'jrs-post-analytics-wordcount-enable' ), '1' ); ?>>
+		<?php
+	}
+
+	/**
+	 * Builds the character count settings field html.
+	 */
+	public function build_charactercount_settings_html() {
+		?>
+		<input type="checkbox" name="jrs-post-analytics-charactercount-enable" value="1" <?php checked( get_option( 'jrs-post-analytics-charactercount-enable' ), '1' ); ?>>
 		<?php
 	}
 

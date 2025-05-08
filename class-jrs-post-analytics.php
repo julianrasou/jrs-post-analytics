@@ -103,6 +103,25 @@ class Jrs_Post_Analytics {
 				'default'           => 'Post Analytics',
 			)
 		);
+
+		// Adds a field to configure if word count is enabled.
+		add_settings_field(
+			'jrs-post-analytics-wordcount-enable',
+			__( 'Enable Word Count', 'jrs-post-analytics' ),
+			array( $this, 'build_wordcount_settings_html' ),
+			'post-analytics-settings-page',
+			'jrs-post-analysis-section-one'
+		);
+
+		// Registers the setting and its data.
+		register_setting(
+			'jrs-data-analytics-group',
+			'jrs-post-analytics-wordcount-enable',
+			array(
+				'sanitize_callback' => 'sanitize_text_field',
+				'default'           => '1',
+			)
+		);
 	}
 
 	/**
@@ -123,11 +142,20 @@ class Jrs_Post_Analytics {
 	}
 
 	/**
-	 * Builds the location setting field html.
+	 * Builds the headline text setting field html.
 	 */
 	public function build_headline_settings_html() {
 		?>
 		<input type="text" name="jrs-post-analytics-headline-text" value="<?php echo esc_attr( get_option( 'jrs-post-analytics-headline-text' ) ); ?>">
+		<?php
+	}
+
+	/**
+	 * Builds the wordcount settings field html.
+	 */
+	public function build_wordcount_settings_html() {
+		?>
+		<input type="checkbox" name="jrs-post-analytics-wordcount-enable" value="1" <?php checked( get_option( 'jrs-post-analytics-wordcount-enable' ), '1' ); ?>>
 		<?php
 	}
 

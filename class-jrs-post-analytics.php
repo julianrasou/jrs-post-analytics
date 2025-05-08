@@ -84,6 +84,25 @@ class Jrs_Post_Analytics {
 				'default'           => '0',
 			)
 		);
+
+		// Adds a field to configure analytics headline text.
+		add_settings_field(
+			'jrs-post-analytics-headline-text',
+			__( 'Headline Text', 'jrs-post-analytics' ),
+			array( $this, 'build_headline_settings_html' ),
+			'post-analytics-settings-page',
+			'jrs-post-analysis-section-one'
+		);
+
+		// Registers the setting and its data.
+		register_setting(
+			'jrs-data-analytics-group',
+			'jrs-post-analytics-headline-text',
+			array(
+				'sanitize_callback' => 'sanitize_text_field',
+				'default'           => 'Post Analytics',
+			)
+		);
 	}
 
 	/**
@@ -100,6 +119,15 @@ class Jrs_Post_Analytics {
 				<?php esc_html_e( 'End of post', 'jrs-post-analytics' ); ?>
 			</option>
 		</select>
+		<?php
+	}
+
+	/**
+	 * Builds the location setting field html.
+	 */
+	public function build_headline_settings_html() {
+		?>
+		<input type="text" name="jrs-post-analytics-headline-text" value="<?php echo esc_attr( get_option( 'jrs-post-analytics-headline-text' ) ); ?>">
 		<?php
 	}
 

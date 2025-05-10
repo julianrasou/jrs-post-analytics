@@ -228,5 +228,49 @@ class Jrs_Post_Analytics {
 	 * @param string $content Content of the current post.
 	 */
 	public function if_settings_enabled( $content ) {
+		if (
+			( is_main_query() && is_single() )
+			&&
+			( get_option( 'jrs-post-analytics-wordcount-enable', '1' ) || get_option( 'jrs-post-analytics-charactercount-enable', '1' ) || get_option( 'jrs-post-analytics-readtime-enable', '1' ) )
+		) {
+			return $this->add_post_analytics_to_content( $content );
+		}
+		return $content;
+	}
+
+	/**
+	 * Builds the post analytics section and concatenates it to the beggining or end of the post.
+	 *
+	 * @param string $content Content of the current post.
+	 */
+	public function add_post_analytics_to_content( $content ) {
+		// Adds a title.
+		$html = '<h3>' . esc_html( get_option( 'jrs-post-analytics-headline-text', __( 'Post Analytics', 'jrs-post-analytics' ) ) ) . '</h3>';
+
+		// Calculates the wordcount if needed.
+		if ( get_option( 'jrs-post-analytics-wordcount-enable', '1' ) || get_option( 'jrs-post-analytics-readtime-enable', '1' ) ) {
+			$word_count = str_word_count( wp_strip_all_tags( $content ) );
+		}
+
+		// Adds word count line.
+		if ( get_option( 'jrs-post-analytics-wordcount-enable', '1' ) ) {
+			$html .= '<p>' . __( 'This post has ', 'jrs-post-analytics' ) . $word_count . __( ' words. ', 'jrs-post-analytics' ) . '</p>';
+		}
+
+		// Adds character count line.
+		if ( get_option( 'jrs-post-analytics-charactercount-enable', '1' ) ) {
+			$html .= '<p>' . __( 'This post has ', 'jrs-post-analytics' ) . strlen( wp_strip_all_tags( $content ) ) . __( ' characters. ', 'word-count' ) . '</p>';
+		}
+
+		// Adds read time line.
+		if ( get_option( 'jrs-post-analytics-readtime-enable', '1' ) ) {
+			$html .= '<p>' . __( 'This post will take about ', 'jrs-post-analytics' ) . round( $word_count / 225 ) . __( ' minute(s) to read. ', 'jrs-post-analytics' ) . '</p>';
+		}
+
+		// Returns the content with the post analytics in the preferred location.
+		if ( get_option( 'jrs-post-analytics-location', '0' ) === '0' ) {
+			return $html . $content;
+		}
+		return $content . $html;
 	}
 }

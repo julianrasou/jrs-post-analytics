@@ -254,17 +254,23 @@ class Jrs_Post_Analytics {
 
 		// Adds word count line.
 		if ( get_option( 'jrs-post-analytics-wordcount-enable', '1' ) ) {
-			$html .= '<p>' . __( 'This post has ', 'jrs-post-analytics' ) . $word_count . __( ' words. ', 'jrs-post-analytics' ) . '</p>';
+
+			$html .= $this->generate_wordcount( $word_count );
+
 		}
 
 		// Adds character count line.
 		if ( get_option( 'jrs-post-analytics-charactercount-enable', '1' ) ) {
-			$html .= '<p>' . __( 'This post has ', 'jrs-post-analytics' ) . strlen( wp_strip_all_tags( $content ) ) . __( ' characters. ', 'word-count' ) . '</p>';
+
+			$html .= $this->generate_charactercount( $content );
+
 		}
 
 		// Adds read time line.
 		if ( get_option( 'jrs-post-analytics-readtime-enable', '1' ) ) {
-			$html .= '<p>' . __( 'This post will take about ', 'jrs-post-analytics' ) . round( $word_count / 225 ) . __( ' minute(s) to read. ', 'jrs-post-analytics' ) . '</p>';
+
+			$html .= $this->generate_readtime( $word_count );
+
 		}
 
 		// Returns the content with the post analytics in the preferred location.
@@ -272,5 +278,64 @@ class Jrs_Post_Analytics {
 			return $html . $content;
 		}
 		return $content . $html;
+	}
+
+	/**
+	 * Generates the word count analytics line.
+	 *
+	 * @param integer $word_count word count of the content.
+	 * @return string Formated string for analytics.
+	 */
+	public function generate_wordcount( $word_count ) {
+		$html  = '<p>';
+		$html .= sprintf(
+			/* translators: %s: word count */
+			__( 'This post has %s words.', 'jrs-post-analytics' ),
+			$word_count
+		);
+		$html .= '</p>';
+
+		return $html;
+	}
+
+
+	/**
+	 * Generates the character count analytics line.
+	 *
+	 * @param integer $content content of the page.
+	 * @return string Formated string for analytics.
+	 */
+	public function generate_charactercount( $content ) {
+		$total_characters = strlen( wp_strip_all_tags( $content ) );
+
+		$html  = '<p>';
+		$html .= sprintf(
+			/* translators: %s: characteres of the post */
+			__( 'This post has %s characters.', 'jrs-post-analytics' ),
+			$total_characters
+		);
+		$html .= '</p>';
+
+		return $html;
+	}
+
+	/**
+	 * Generates the read time analytics line.
+	 *
+	 * @param integer $word_count word count of the content.
+	 * @return string Formated string for analytics.
+	 */
+	public function generate_readtime( $word_count ) {
+		$aproximate_readtime = round( $word_count / 225 );
+
+		$html  = '<p>';
+		$html .= sprintf(
+			/* translators: %s: aproximate read time */
+			__( 'This post will take about %s minute(s) to read.', 'jrs-post-analytics' ),
+			$aproximate_readtime
+		);
+		$html .= '</p>';
+
+		return $html;
 	}
 }

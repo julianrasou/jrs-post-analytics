@@ -219,6 +219,7 @@ class Jrs_Post_Analytics {
 	 * Load plugin text domain.
 	 */
 	public function load_textdomain() {
+		load_plugin_textdomain( 'jrs-post-analytics', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 	}
 
 	/**
@@ -347,7 +348,7 @@ class Jrs_Post_Analytics {
 			default:
 				$html .= sprintf(
 					/* translators: %s: aproximate read time */
-					__( 'This post will take about %s minute(s) to read.', 'jrs-post-analytics' ),
+					__( 'This post will take about %s minutes to read.', 'jrs-post-analytics' ),
 					$aproximate_readtime
 				);
 		}

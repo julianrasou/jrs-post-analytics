@@ -1,0 +1,105 @@
+# Copyright (C) 2025 Julián Ramos Souza
+# This file is distributed under the GPLv3.
+msgid ""
+msgstr ""
+"Project-Id-Version: JRS Post Analytics 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jrs-post-"
+"analytics\n"
+"POT-Creation-Date: 2025-05-12T15:55:52+00:00\n"
+"PO-Revision-Date: 2025-05-12 18:05+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: gl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.6\n"
+"X-Domain: jrs-post-analytics\n"
+
+#. Plugin Name of the plugin
+#: jrs-post-analytics.php
+msgid "JRS Post Analytics"
+msgstr "JRS Post Analytics"
+
+#. Plugin URI of the plugin
+#: jrs-post-analytics.php
+msgid "https://github.com/julianrasou/jrs-post-analytics"
+msgstr "https://github.com/julianrasou/jrs-post-analytics"
+
+#. Description of the plugin
+#: jrs-post-analytics.php
+msgid ""
+"Displays post analytics (word count, character count, reading time) at the "
+"beggining or end of your posts"
+msgstr ""
+"Mostra unha análise (conteo de palabras, caracteres, tempo de lectura) ao "
+"principio ou final das publicacións"
+
+#. Author of the plugin
+#: jrs-post-analytics.php
+msgid "Julián Ramos Souza"
+msgstr "Julián Ramos Souza"
+
+#. Author URI of the plugin
+#: jrs-post-analytics.php
+msgid "https://github.com/julianrasou"
+msgstr "https://github.com/julianrasou"
+
+#: class-jrs-post-analytics.php:33 class-jrs-post-analytics.php:49
+msgid "Post Analytics Settings"
+msgstr "Configuración da análise das publicacións"
+
+#: class-jrs-post-analytics.php:34 class-jrs-post-analytics.php:251
+msgid "Post Analytics"
+msgstr "Análise da publicación"
+
+#: class-jrs-post-analytics.php:72
+msgid "Display Location"
+msgstr "Localización"
+
+#: class-jrs-post-analytics.php:91
+msgid "Headline Text"
+msgstr "Texto da cabeceira"
+
+#: class-jrs-post-analytics.php:110
+msgid "Enable Word Count"
+msgstr "Mostrar conteo de palabras"
+
+#: class-jrs-post-analytics.php:129
+msgid "Enable Character Count"
+msgstr "Mostrar conteo de caracteres"
+
+#: class-jrs-post-analytics.php:148
+msgid "Enable Read Time"
+msgstr "Mostrar tempo de lectura"
+
+#: class-jrs-post-analytics.php:173
+msgid "Beginning of post"
+msgstr "Inicio da publicación"
+
+#: class-jrs-post-analytics.php:176
+msgid "End of post"
+msgstr "Fin da publicación"
+
+#. translators: %s: word count
+#: class-jrs-post-analytics.php:301
+msgid "This post has %s words."
+msgstr "Esta publicación ten %s palabras."
+
+#. translators: %s: characteres of the post
+#: class-jrs-post-analytics.php:322
+msgid "This post has %s characters."
+msgstr "Esta publicación ten %s caracteres."
+
+#: class-jrs-post-analytics.php:343
+msgid "This post will take less than 1 minute to read."
+msgstr "Esta publicación tomará menos dun minuto de lectura."
+
+#: class-jrs-post-analytics.php:346
+msgid "This post will take about 1 minute to read."
+msgstr "Esta publicación tomará aproximadamente un minuto de lectura."
+
+#. translators: %s: aproximate read time
+#: class-jrs-post-analytics.php:351
+msgid "This post will take about %s minutes to read."
+msgstr "Esta publicación tomará aproximadamente %s minutos de lectura."

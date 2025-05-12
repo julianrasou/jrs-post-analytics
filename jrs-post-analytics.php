@@ -10,7 +10,7 @@
  * @wordpless-plugin
  * Plugin Name:       JRS Post Analytics
  * Plugin URI:        https://github.com/julianrasou/jrs-post-analytics
- * Description:       Displays post analytics (word count, character count, reading time) at the beggining or end of your posts
+ * Description:       Displays post analytics (word count, character count, reading time) at the beginning or end of your posts
  * Version:           1.0.0
  * Requires at least: 5.0
  * Requires PHP:      7.4

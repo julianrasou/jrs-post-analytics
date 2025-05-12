@@ -81,7 +81,7 @@ class Jrs_Post_Analytics {
 			'jrs-post-analytics-location',
 			array(
 				'sanitize_callback' => 'sanitize_text_field',
-				'default'           => '0',
+				'default'           => 0,
 			)
 		);
 
@@ -119,7 +119,7 @@ class Jrs_Post_Analytics {
 			'jrs-post-analytics-wordcount-enable',
 			array(
 				'sanitize_callback' => 'sanitize_text_field',
-				'default'           => '1',
+				'default'           => 1,
 			)
 		);
 
@@ -138,7 +138,7 @@ class Jrs_Post_Analytics {
 			'jrs-post-analytics-charactercount-enable',
 			array(
 				'sanitize_callback' => 'sanitize_text_field',
-				'default'           => '1',
+				'default'           => 1,
 			)
 		);
 
@@ -157,7 +157,7 @@ class Jrs_Post_Analytics {
 			'jrs-post-analytics-readtime-enable',
 			array(
 				'sanitize_callback' => 'sanitize_text_field',
-				'default'           => '1',
+				'default'           => 1,
 			)
 		);
 	}
@@ -169,10 +169,10 @@ class Jrs_Post_Analytics {
 	public function build_location_settings_html() {
 		?>
 		<select name="jrs-post-analytics-location">
-			<option value="0" <?php selected( get_option( 'jrs-post-analytics-location' ), '0' ); ?> >
+			<option value="0" <?php selected( get_option( 'jrs-post-analytics-location' ), 0 ); ?> >
 				<?php esc_html_e( 'Beginning of post', 'jrs-post-analytics' ); ?>
 			</option>
-			<option value="1" <?php selected( get_option( 'jrs-post-analytics-location' ), '1' ); ?>>
+			<option value="1" <?php selected( get_option( 'jrs-post-analytics-location' ), 1 ); ?>>
 				<?php esc_html_e( 'End of post', 'jrs-post-analytics' ); ?>
 			</option>
 		</select>
@@ -193,7 +193,7 @@ class Jrs_Post_Analytics {
 	 */
 	public function build_wordcount_settings_html() {
 		?>
-		<input type="checkbox" name="jrs-post-analytics-wordcount-enable" value="1" <?php checked( get_option( 'jrs-post-analytics-wordcount-enable' ), '1' ); ?>>
+		<input type="checkbox" name="jrs-post-analytics-wordcount-enable" value="1" <?php checked( get_option( 'jrs-post-analytics-wordcount-enable' ), 1 ); ?>>
 		<?php
 	}
 
@@ -202,7 +202,7 @@ class Jrs_Post_Analytics {
 	 */
 	public function build_charactercount_settings_html() {
 		?>
-		<input type="checkbox" name="jrs-post-analytics-charactercount-enable" value="1" <?php checked( get_option( 'jrs-post-analytics-charactercount-enable' ), '1' ); ?>>
+		<input type="checkbox" name="jrs-post-analytics-charactercount-enable" value="1" <?php checked( get_option( 'jrs-post-analytics-charactercount-enable' ), 1 ); ?>>
 		<?php
 	}
 
@@ -211,7 +211,7 @@ class Jrs_Post_Analytics {
 	 */
 	public function build_readtime_settings_html() {
 		?>
-		<input type="checkbox" name="jrs-post-analytics-readtime-enable" value="1" <?php checked( get_option( 'jrs-post-analytics-readtime-enable' ), '1' ); ?>>
+		<input type="checkbox" name="jrs-post-analytics-readtime-enable" value="1" <?php checked( get_option( 'jrs-post-analytics-readtime-enable' ), 1 ); ?>>
 		<?php
 	}
 
@@ -231,7 +231,7 @@ class Jrs_Post_Analytics {
 		if (
 			( is_main_query() && is_single() )
 			&&
-			( get_option( 'jrs-post-analytics-wordcount-enable', '1' ) || get_option( 'jrs-post-analytics-charactercount-enable', '1' ) || get_option( 'jrs-post-analytics-readtime-enable', '1' ) )
+			( get_option( 'jrs-post-analytics-wordcount-enable', 1 ) || get_option( 'jrs-post-analytics-charactercount-enable', 1 ) || get_option( 'jrs-post-analytics-readtime-enable', 1 ) )
 		) {
 			return $this->add_post_analytics_to_content( $content );
 		}
@@ -244,37 +244,42 @@ class Jrs_Post_Analytics {
 	 * @param string $content Content of the current post.
 	 */
 	public function add_post_analytics_to_content( $content ) {
+		// Wraps plugin content inside a div.
+		$html = '<div id="jrs-post-analytics" class="jrs-post-analytics">';
 		// Adds a title.
-		$html = '<h3>' . esc_html( get_option( 'jrs-post-analytics-headline-text', __( 'Post Analytics', 'jrs-post-analytics' ) ) ) . '</h3>';
+		$html .= '<h3>' . esc_html( get_option( 'jrs-post-analytics-headline-text', __( 'Post Analytics', 'jrs-post-analytics' ) ) ) . '</h3>';
 
 		// Calculates the wordcount if needed.
-		if ( get_option( 'jrs-post-analytics-wordcount-enable', '1' ) || get_option( 'jrs-post-analytics-readtime-enable', '1' ) ) {
+		if ( get_option( 'jrs-post-analytics-wordcount-enable', 1 ) || get_option( 'jrs-post-analytics-readtime-enable', 1 ) ) {
 			$word_count = str_word_count( wp_strip_all_tags( $content ) );
 		}
 
 		// Adds word count line.
-		if ( get_option( 'jrs-post-analytics-wordcount-enable', '1' ) ) {
+		if ( get_option( 'jrs-post-analytics-wordcount-enable', 1 ) ) {
 
 			$html .= $this->generate_wordcount( $word_count );
 
 		}
 
 		// Adds character count line.
-		if ( get_option( 'jrs-post-analytics-charactercount-enable', '1' ) ) {
+		if ( get_option( 'jrs-post-analytics-charactercount-enable', 1 ) ) {
 
 			$html .= $this->generate_charactercount( $content );
 
 		}
 
 		// Adds read time line.
-		if ( get_option( 'jrs-post-analytics-readtime-enable', '1' ) ) {
+		if ( get_option( 'jrs-post-analytics-readtime-enable', 1 ) ) {
 
 			$html .= $this->generate_readtime( $word_count );
 
 		}
 
+		// Close the div.
+		$html .= '</div>';
+
 		// Returns the content with the post analytics in the preferred location.
-		if ( get_option( 'jrs-post-analytics-location', '0' ) === '0' ) {
+		if ( 0 === (int) get_option( 'jrs-post-analytics-location', 0 ) ) {
 			return $html . $content;
 		}
 		return $content . $html;
@@ -287,11 +292,13 @@ class Jrs_Post_Analytics {
 	 * @return string Formated string for analytics.
 	 */
 	public function generate_wordcount( $word_count ) {
+		$total_words = number_format( $word_count, 0, ',', '.' );
+
 		$html  = '<p>';
 		$html .= sprintf(
 			/* translators: %s: word count */
 			__( 'This post has %s words.', 'jrs-post-analytics' ),
-			$word_count
+			$total_words
 		);
 		$html .= '</p>';
 
@@ -306,7 +313,7 @@ class Jrs_Post_Analytics {
 	 * @return string Formated string for analytics.
 	 */
 	public function generate_charactercount( $content ) {
-		$total_characters = strlen( wp_strip_all_tags( $content ) );
+		$total_characters = number_format( strlen( wp_strip_all_tags( $content ) ), 0, ',', '.' );
 
 		$html  = '<p>';
 		$html .= sprintf(
@@ -328,12 +335,23 @@ class Jrs_Post_Analytics {
 	public function generate_readtime( $word_count ) {
 		$aproximate_readtime = round( $word_count / 225 );
 
-		$html  = '<p>';
-		$html .= sprintf(
-			/* translators: %s: aproximate read time */
-			__( 'This post will take about %s minute(s) to read.', 'jrs-post-analytics' ),
-			$aproximate_readtime
-		);
+		$html = '<p>';
+
+		switch ( $aproximate_readtime ) {
+			case 0:
+				$html .= __( 'This post will take less than 1 minute to read.', 'jrs-post-analytics' );
+				break;
+			case 1:
+				$html .= __( 'This post will take about 1 minute to read.', 'jrs-post-analytics' );
+				break;
+			default:
+				$html .= sprintf(
+					/* translators: %s: aproximate read time */
+					__( 'This post will take about %s minute(s) to read.', 'jrs-post-analytics' ),
+					$aproximate_readtime
+				);
+		}
+
 		$html .= '</p>';
 
 		return $html;

@@ -104,6 +104,25 @@ class Jrs_Post_Analytics {
 			)
 		);
 
+		// Adds a field to change reading speed used in calculations.
+		add_settings_field(
+			'jrs-post-analytics-reading-speed',
+			__( 'Reading Speed', 'jrs-post-analytics' ),
+			array( $this, 'build_reading_speed_settings_html' ),
+			'post-analytics-settings-page',
+			'jrs-post-analysis-section-one'
+		);
+
+		// Registers the setting and its data.
+		register_setting(
+			'jrs-data-analytics-group',
+			'jrs-post-analytics-reading-speed',
+			array(
+				'sanitize_callback' => 'sanitize_text_field',
+				'default'           => 225,
+			)
+		);
+
 		// Adds a field to configure if word count is enabled.
 		add_settings_field(
 			'jrs-post-analytics-wordcount-enable',
@@ -212,6 +231,15 @@ class Jrs_Post_Analytics {
 	public function build_readtime_settings_html() {
 		?>
 		<input type="checkbox" name="jrs-post-analytics-readtime-enable" value="1" <?php checked( get_option( 'jrs-post-analytics-readtime-enable' ), 1 ); ?>>
+		<?php
+	}
+
+	/**
+	 * Builds the reading speed settings field.
+	 */
+	public function build_reading_speed_settings_html() {
+		?>
+		<input type="number" name="jrs-post-analytics-reading-speed" value="<?php echo esc_attr( get_option( 'jrs-post-analytics-reading-speed' ) ); ?>" >
 		<?php
 	}
 
@@ -334,21 +362,36 @@ class Jrs_Post_Analytics {
 	 * @return string Formated string for analytics.
 	 */
 	public function generate_readtime( $word_count ) {
-		$aproximate_readtime = round( $word_count / 225 );
+		$reading_speed       = get_option( 'jrs-post-analytics-reading-speed' );
+		$aproximate_readtime = round( $word_count / $reading_speed );
+		$span_title          = sprintf(
+			/* translators: %s: reading speed in words per minute */
+			__( 'Calculations based on a reading speed of %s words per minute.', 'jrs-post-analytics' ),
+			$reading_speed
+		);
 
 		$html = '<p>';
 
 		switch ( $aproximate_readtime ) {
 			case 0:
-				$html .= __( 'This post will take less than 1 minute to read.', 'jrs-post-analytics' );
+				$html .= sprintf(
+					/* translators: %s: aproximate read time */
+					__( 'This post will take less than <span title="%s">1 minute</span> to read.', 'jrs-post-analytics' ),
+					$span_title
+				);
 				break;
 			case 1:
-				$html .= __( 'This post will take about 1 minute to read.', 'jrs-post-analytics' );
+				$html .= sprintf(
+					/* translators: %s: aproximate read time */
+					__( 'This post will take about <span title="%s">1 minute</span> to read.', 'jrs-post-analytics' ),
+					$span_title
+				);
 				break;
 			default:
 				$html .= sprintf(
 					/* translators: %s: aproximate read time */
-					__( 'This post will take about %s minutes to read.', 'jrs-post-analytics' ),
+					__( 'This post will take about <span title="%1$s">%2$s minutes</span> to read.', 'jrs-post-analytics' ),
+					$span_title,
 					$aproximate_readtime
 				);
 		}

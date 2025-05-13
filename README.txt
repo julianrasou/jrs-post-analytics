@@ -30,7 +30,7 @@ No, it will be only shown if there is at least one option enabled.
 == Changelog ==
 
 = 1.1.0 =
-* Added option to cange reading speed for the analytics calculations
+* Added option to change reading speed for the analytics calculations
 * Optimized by loading analytics to post metadata on page save instead of calculating analytics for every user
 
 = 1.0.0 =

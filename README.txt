@@ -1,4 +1,4 @@
-=== JRS Plugin Analytics ===
+=== JRS Post Analytics ===
 Contributors: julianrasou
 Tags: wordcount, readtime
 Requires at least: 5.0

@@ -3,7 +3,7 @@ Contributors: julianrasou
 Tags: wordcount, readtime
 Requires at least: 5.0
 Tested up to: 6.8
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -28,6 +28,10 @@ The plugin's settings page can be found in the tools menu.
 No, it will be only shown if there is at least one option enabled.
 
 == Changelog ==
+
+= 1.1.0 =
+* Added option to cange reading speed for the analytics calculations
+* Optimized by loading analytics to post metadata on page save instead of calculating analytics for every user
 
 = 1.0.0 =
 * Initial release

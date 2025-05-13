@@ -22,6 +22,7 @@ class Jrs_Post_Analytics {
 		add_action( 'admin_menu', array( $this, 'add_tools_page' ) );
 		add_action( 'admin_init', array( $this, 'add_settings' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+		add_action( 'save_post', array( $this, 'load_metadata' ) );
 		add_filter( 'the_content', array( $this, 'if_settings_enabled' ) );
 	}
 
@@ -251,6 +252,33 @@ class Jrs_Post_Analytics {
 	}
 
 	/**
+	 * Loads in the post's metadata parameters used by this plugin for later use.
+	 * Word Count, Character Count and readtime.
+	 *
+	 * @param int $post_id ID of the current post.
+	 */
+	public function load_metadata( $post_id ) {
+		$content             = get_the_content( null, false, $post_id );
+		$word_count          = str_word_count( wp_strip_all_tags( $content ) );
+		$total_characters    = number_format( strlen( wp_strip_all_tags( $content ) ), 0, ',', '.' );
+		$reading_speed       = get_option( 'jrs-post-analytics-reading-speed', 225 );
+		$aproximate_readtime = round( $word_count / $reading_speed );
+
+		// If metadata not set, adds it, else, updates it.
+		if ( get_post_meta( $post_id, 'jrs-post-analytics-wordcount-meta', true ) === '' ) {
+			add_post_meta( $post_id, 'jrs-post-analytics-wordcount-meta', $word_count );
+		} else {
+			update_post_meta( $post_id, 'jrs-post-analytics-wordcount-meta', $word_count );
+		}
+
+		if ( get_post_meta( $post_id, 'jrs-post-analytics-charactercount-meta', true ) === '' ) {
+			add_post_meta( $post_id, 'jrs-post-analytics-charactercount-meta', $total_characters );
+		} else {
+			update_post_meta( $post_id, 'jrs-post-analytics-charactercount-meta', $total_characters );
+		}
+	}
+
+	/**
 	 * Checks if the settings options are enabled, if they are:
 	 * Adds post analytics at the preferred location.
 	 *
@@ -278,29 +306,34 @@ class Jrs_Post_Analytics {
 		// Adds a title.
 		$html .= '<h3>' . esc_html( get_option( 'jrs-post-analytics-headline-text', __( 'Post Analytics', 'jrs-post-analytics' ) ) ) . '</h3>';
 
-		// Calculates the wordcount if needed.
-		if ( get_option( 'jrs-post-analytics-wordcount-enable', 1 ) || get_option( 'jrs-post-analytics-readtime-enable', 1 ) ) {
-			$word_count = str_word_count( wp_strip_all_tags( $content ) );
+		// Loads metadata if not set.
+		$post_id = get_the_ID();
+		if (
+			get_post_meta( $post_id, 'jrs-post-analytics-wordcount-meta', true ) === '' ||
+			get_post_meta( $post_id, 'jrs-post-analytics-charactercount-meta', true ) === '' ||
+			get_post_meta( $post_id, 'jrs-post-analytics-readtime-meta', true ) === ''
+			) {
+			$this->load_metadata( $post_id );
 		}
 
 		// Adds word count line.
 		if ( get_option( 'jrs-post-analytics-wordcount-enable', 1 ) ) {
 
-			$html .= $this->generate_wordcount( $word_count );
+			$html .= $this->generate_wordcount();
 
 		}
 
 		// Adds character count line.
 		if ( get_option( 'jrs-post-analytics-charactercount-enable', 1 ) ) {
 
-			$html .= $this->generate_charactercount( $content );
+			$html .= $this->generate_charactercount();
 
 		}
 
 		// Adds read time line.
 		if ( get_option( 'jrs-post-analytics-readtime-enable', 1 ) ) {
 
-			$html .= $this->generate_readtime( $word_count );
+			$html .= $this->generate_readtime();
 
 		}
 
@@ -317,10 +350,11 @@ class Jrs_Post_Analytics {
 	/**
 	 * Generates the word count analytics line.
 	 *
-	 * @param integer $word_count word count of the content.
 	 * @return string Formated string for analytics.
 	 */
-	public function generate_wordcount( $word_count ) {
+	public function generate_wordcount() {
+		$word_count = get_post_meta( get_the_ID(), 'jrs-post-analytics-wordcount-meta', true );
+
 		$total_words = number_format( $word_count, 0, ',', '.' );
 
 		$html  = '<p>';
@@ -338,11 +372,10 @@ class Jrs_Post_Analytics {
 	/**
 	 * Generates the character count analytics line.
 	 *
-	 * @param integer $content content of the page.
 	 * @return string Formated string for analytics.
 	 */
-	public function generate_charactercount( $content ) {
-		$total_characters = number_format( strlen( wp_strip_all_tags( $content ) ), 0, ',', '.' );
+	public function generate_charactercount() {
+		$total_characters = get_post_meta( get_the_ID(), 'jrs-post-analytics-charactercount-meta', true );
 
 		$html  = '<p>';
 		$html .= sprintf(
@@ -358,11 +391,11 @@ class Jrs_Post_Analytics {
 	/**
 	 * Generates the read time analytics line.
 	 *
-	 * @param integer $word_count word count of the content.
 	 * @return string Formated string for analytics.
 	 */
-	public function generate_readtime( $word_count ) {
-		$reading_speed       = get_option( 'jrs-post-analytics-reading-speed' );
+	public function generate_readtime() {
+		$word_count          = get_post_meta( get_the_ID(), 'jrs-post-analytics-wordcount-meta', true );
+		$reading_speed       = get_option( 'jrs-post-analytics-reading-speed', 225 );
 		$aproximate_readtime = round( $word_count / $reading_speed );
 		$span_title          = sprintf(
 			/* translators: %s: reading speed in words per minute */

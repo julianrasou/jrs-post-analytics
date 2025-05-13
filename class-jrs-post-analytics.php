@@ -253,16 +253,14 @@ class Jrs_Post_Analytics {
 
 	/**
 	 * Loads in the post's metadata parameters used by this plugin for later use.
-	 * Word Count, Character Count and readtime.
+	 * Word Count and Character Count.
 	 *
 	 * @param int $post_id ID of the current post.
 	 */
 	public function load_metadata( $post_id ) {
-		$content             = get_the_content( null, false, $post_id );
-		$word_count          = str_word_count( wp_strip_all_tags( $content ) );
-		$total_characters    = number_format( strlen( wp_strip_all_tags( $content ) ), 0, ',', '.' );
-		$reading_speed       = get_option( 'jrs-post-analytics-reading-speed', 225 );
-		$aproximate_readtime = round( $word_count / $reading_speed );
+		$content          = get_the_content( null, false, $post_id );
+		$word_count       = str_word_count( wp_strip_all_tags( $content ) );
+		$total_characters = strlen( wp_strip_all_tags( $content ) );
 
 		// If metadata not set, adds it, else, updates it.
 		if ( get_post_meta( $post_id, 'jrs-post-analytics-wordcount-meta', true ) === '' ) {
@@ -301,20 +299,19 @@ class Jrs_Post_Analytics {
 	 * @param string $content Content of the current post.
 	 */
 	public function add_post_analytics_to_content( $content ) {
+		// Loads metadata if not already set.
+		$post_id = get_the_ID();
+		if (
+			get_post_meta( $post_id, 'jrs-post-analytics-wordcount-meta', true ) === '' ||
+			get_post_meta( $post_id, 'jrs-post-analytics-charactercount-meta', true ) === ''
+			) {
+			$this->load_metadata( $post_id );
+		}
+
 		// Wraps plugin content inside a div.
 		$html = '<div id="jrs-post-analytics" class="jrs-post-analytics">';
 		// Adds a title.
 		$html .= '<h3>' . esc_html( get_option( 'jrs-post-analytics-headline-text', __( 'Post Analytics', 'jrs-post-analytics' ) ) ) . '</h3>';
-
-		// Loads metadata if not set.
-		$post_id = get_the_ID();
-		if (
-			get_post_meta( $post_id, 'jrs-post-analytics-wordcount-meta', true ) === '' ||
-			get_post_meta( $post_id, 'jrs-post-analytics-charactercount-meta', true ) === '' ||
-			get_post_meta( $post_id, 'jrs-post-analytics-readtime-meta', true ) === ''
-			) {
-			$this->load_metadata( $post_id );
-		}
 
 		// Adds word count line.
 		if ( get_option( 'jrs-post-analytics-wordcount-enable', 1 ) ) {

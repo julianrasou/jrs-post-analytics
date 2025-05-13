@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: JRS Post Analytics 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jrs-post-"
 "analytics\n"
-"POT-Creation-Date: 2025-05-12T15:55:52+00:00\n"
-"PO-Revision-Date: 2025-05-12 18:05+0200\n"
+"POT-Creation-Date: 2025-05-13T19:53:07+00:00\n"
+"PO-Revision-Date: 2025-05-13 22:02+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: gl\n"
@@ -30,7 +30,7 @@ msgstr "https://github.com/julianrasou/jrs-post-analytics"
 #: jrs-post-analytics.php
 msgid ""
 "Displays post analytics (word count, character count, reading time) at the "
-"beggining or end of your posts"
+"beginning or end of your posts"
 msgstr ""
 "Mostra unha análise (conteo de palabras, caracteres, tempo de lectura) ao "
 "principio ou final das publicacións"
@@ -45,61 +45,84 @@ msgstr "Julián Ramos Souza"
 msgid "https://github.com/julianrasou"
 msgstr "https://github.com/julianrasou"
 
-#: class-jrs-post-analytics.php:33 class-jrs-post-analytics.php:49
+#: class-jrs-post-analytics.php:34 class-jrs-post-analytics.php:50
 msgid "Post Analytics Settings"
 msgstr "Configuración da análise das publicacións"
 
-#: class-jrs-post-analytics.php:34 class-jrs-post-analytics.php:251
+#: class-jrs-post-analytics.php:35 class-jrs-post-analytics.php:314
 msgid "Post Analytics"
 msgstr "Análise da publicación"
 
-#: class-jrs-post-analytics.php:72
+#: class-jrs-post-analytics.php:73
 msgid "Display Location"
 msgstr "Localización"
 
-#: class-jrs-post-analytics.php:91
+#: class-jrs-post-analytics.php:92
 msgid "Headline Text"
 msgstr "Texto da cabeceira"
 
-#: class-jrs-post-analytics.php:110
+#: class-jrs-post-analytics.php:111
+msgid "Reading Speed"
+msgstr "Velocidade de lectura"
+
+#: class-jrs-post-analytics.php:130
 msgid "Enable Word Count"
 msgstr "Mostrar conteo de palabras"
 
-#: class-jrs-post-analytics.php:129
+#: class-jrs-post-analytics.php:149
 msgid "Enable Character Count"
 msgstr "Mostrar conteo de caracteres"
 
-#: class-jrs-post-analytics.php:148
+#: class-jrs-post-analytics.php:168
 msgid "Enable Read Time"
 msgstr "Mostrar tempo de lectura"
 
-#: class-jrs-post-analytics.php:173
+#: class-jrs-post-analytics.php:193
 msgid "Beginning of post"
 msgstr "Inicio da publicación"
 
-#: class-jrs-post-analytics.php:176
+#: class-jrs-post-analytics.php:196
 msgid "End of post"
 msgstr "Fin da publicación"
 
 #. translators: %s: word count
-#: class-jrs-post-analytics.php:301
+#: class-jrs-post-analytics.php:360
 msgid "This post has %s words."
 msgstr "Esta publicación ten %s palabras."
 
 #. translators: %s: characteres of the post
-#: class-jrs-post-analytics.php:322
+#: class-jrs-post-analytics.php:380
 msgid "This post has %s characters."
 msgstr "Esta publicación ten %s caracteres."
 
-#: class-jrs-post-analytics.php:343
-msgid "This post will take less than 1 minute to read."
-msgstr "Esta publicación tomará menos dun minuto de lectura."
-
-#: class-jrs-post-analytics.php:346
-msgid "This post will take about 1 minute to read."
-msgstr "Esta publicación tomará aproximadamente un minuto de lectura."
+#. translators: %s: reading speed in words per minute
+#: class-jrs-post-analytics.php:399
+msgid "Calculations based on a reading speed of %s words per minute."
+msgstr ""
+"Cálculo baseado nunha velocidade de lectura de %s palabras por minuto."
 
 #. translators: %s: aproximate read time
-#: class-jrs-post-analytics.php:351
-msgid "This post will take about %s minutes to read."
-msgstr "Esta publicación tomará aproximadamente %s minutos de lectura."
+#: class-jrs-post-analytics.php:409
+msgid ""
+"This post will take less than <span title=\"%s\">1 minute</span> to read."
+msgstr ""
+"Esta publicación tomará menos <span title=\"%s\">dun minuto</span> de "
+"lectura."
+
+#. translators: %s: aproximate read time
+#: class-jrs-post-analytics.php:416
+msgid "This post will take about <span title=\"%s\">1 minute</span> to read."
+msgstr ""
+"Esta publicación tomará aproximadamente <span title=\"%s\">un minuto</"
+"span> de lectura."
+
+#. translators: %s: aproximate read time
+#: class-jrs-post-analytics.php:423
+msgid ""
+"This post will take about <span title=\"%1$s\">%2$s minutes</span> to read."
+msgstr ""
+"Esta publicación tomará aproximadamente <span title=\"%1$s\">%2$s minutos</"
+"span> de lectura."
+
+#~ msgid "This post will take about 1 minute to read."
+#~ msgstr "Esta publicación tomará aproximadamente un minuto de lectura."

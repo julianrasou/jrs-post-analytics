@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-05-12T15:55:52+00:00\n"
+"POT-Creation-Date: 2025-05-13T19:53:07+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: jrs-post-analytics\n"
@@ -26,7 +26,7 @@ msgstr ""
 
 #. Description of the plugin
 #: jrs-post-analytics.php
-msgid "Displays post analytics (word count, character count, reading time) at the beggining or end of your posts"
+msgid "Displays post analytics (word count, character count, reading time) at the beginning or end of your posts"
 msgstr ""
 
 #. Author of the plugin
@@ -39,63 +39,74 @@ msgstr ""
 msgid "https://github.com/julianrasou"
 msgstr ""
 
-#: class-jrs-post-analytics.php:33
-#: class-jrs-post-analytics.php:49
+#: class-jrs-post-analytics.php:34
+#: class-jrs-post-analytics.php:50
 msgid "Post Analytics Settings"
 msgstr ""
 
-#: class-jrs-post-analytics.php:34
-#: class-jrs-post-analytics.php:251
+#: class-jrs-post-analytics.php:35
+#: class-jrs-post-analytics.php:314
 msgid "Post Analytics"
 msgstr ""
 
-#: class-jrs-post-analytics.php:72
+#: class-jrs-post-analytics.php:73
 msgid "Display Location"
 msgstr ""
 
-#: class-jrs-post-analytics.php:91
+#: class-jrs-post-analytics.php:92
 msgid "Headline Text"
 msgstr ""
 
-#: class-jrs-post-analytics.php:110
+#: class-jrs-post-analytics.php:111
+msgid "Reading Speed"
+msgstr ""
+
+#: class-jrs-post-analytics.php:130
 msgid "Enable Word Count"
 msgstr ""
 
-#: class-jrs-post-analytics.php:129
+#: class-jrs-post-analytics.php:149
 msgid "Enable Character Count"
 msgstr ""
 
-#: class-jrs-post-analytics.php:148
+#: class-jrs-post-analytics.php:168
 msgid "Enable Read Time"
 msgstr ""
 
-#: class-jrs-post-analytics.php:173
+#: class-jrs-post-analytics.php:193
 msgid "Beginning of post"
 msgstr ""
 
-#: class-jrs-post-analytics.php:176
+#: class-jrs-post-analytics.php:196
 msgid "End of post"
 msgstr ""
 
 #. translators: %s: word count
-#: class-jrs-post-analytics.php:301
+#: class-jrs-post-analytics.php:360
 msgid "This post has %s words."
 msgstr ""
 
 #. translators: %s: characteres of the post
-#: class-jrs-post-analytics.php:322
+#: class-jrs-post-analytics.php:380
 msgid "This post has %s characters."
 msgstr ""
 
-#: class-jrs-post-analytics.php:343
-msgid "This post will take less than 1 minute to read."
-msgstr ""
-
-#: class-jrs-post-analytics.php:346
-msgid "This post will take about 1 minute to read."
+#. translators: %s: reading speed in words per minute
+#: class-jrs-post-analytics.php:399
+msgid "Calculations based on a reading speed of %s words per minute."
 msgstr ""
 
 #. translators: %s: aproximate read time
-#: class-jrs-post-analytics.php:351
-msgid "This post will take about %s minutes to read."
+#: class-jrs-post-analytics.php:409
+msgid "This post will take less than <span title=\"%s\">1 minute</span> to read."
+msgstr ""
+
+#. translators: %s: aproximate read time
+#: class-jrs-post-analytics.php:416
+msgid "This post will take about <span title=\"%s\">1 minute</span> to read."
+msgstr ""
+
+#. translators: %s: aproximate read time
+#: class-jrs-post-analytics.php:423
+msgid "This post will take about <span title=\"%1$s\">%2$s minutes</span> to read."
 msgstr ""
